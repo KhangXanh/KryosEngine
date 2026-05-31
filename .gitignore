@@ -1,0 +1,27 @@
+# Builds
+/build/
+/bin/
+/bin-int/
+*.exe
+
+# IDE generates
+.vs/
+.vscode/
+*.sln
+*.vcxproj
+*.user
+*.userprefs
+*.pyc
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Debug and symbols
+*.pdb
+*.ilk
+*.exp
+
+# Logs
+KS_LOG_*.txt
