@@ -12,7 +12,7 @@
 
 namespace Kryos
 {
-    TUniquePtr<IWindow> IWindow::CreateWindow(const WindowProperties &properties)
+    TUniquePtr<IWindow> IWindow::HCreateWindow(const WindowProperties &properties)
     {
 // We check the target platform to decide which Window API we will using
 #if defined(PLATFORM_WINDOWS)
@@ -38,9 +38,12 @@ namespace Kryos
     WindowID WindowManager::AddWindow(const WindowProperties &properties)
     {
         // We create a new window with the 'properties'
-        auto newWindow = IWindow::CreateWindow(properties);
+        auto newWindow = IWindow::HCreateWindow(properties);
         WindowID newID = mNextWindowID++;
-        mWindows.emplace_back(newID, std::move(newWindow));
+        // Set new window' ID to 'newID'
+        newWindow->pID = newID;
+        mWindows.emplace(newID, std::move(newWindow));
+        KS_CORE_INFO("A window with ID {} has been created.", newID);
         return newID;
     }
 
@@ -48,42 +51,28 @@ namespace Kryos
     {
         // If we can find a window with the same ID
         // we will return the pointer to that window without changing ownership
-        for (auto &container : mWindows)
+        auto it = mWindows.find(id);
+        if (it == mWindows.end())
         {
-            if (container.ID == id)
-            {
-                return container.Instance.get();
-            }
+            // If don't then we return a nullptr
+            KS_CORE_ERROR("There is no window with ID {}!", id);
+            return nullptr;
         }
-        // If don't then we return a nullptr
-        KS_CORE_ERROR("There is no window with ID {}!", id);
-        return nullptr;
+        
+        return it->second.get();
     }
 
-    void WindowManager::UpdateAllWindows(Float32 dt)
+    void WindowManager::Update()
     {
-        for (auto &container : mWindows)
+        for (auto &[id, window] : mWindows)
         {
-            container.Instance->OnUpdate(dt);
-            if (container.Instance->ShouldClose())
-                mWindowsToClose.push_back(container.ID);
+            window->OnUpdate();
         }
-
-        for (WindowID id : mWindowsToClose)
-            CloseWindow(id);
-
-        // Reset the 'mWindowToClose' to prevent overriding
-        mWindowsToClose.clear();
     }
 
     void WindowManager::CloseWindow(WindowID id)
     {
-        auto it = std::find_if(
-            mWindows.begin(), mWindows.end(),
-            [id](const WindowContainer &c)
-            {
-                return c.ID == id;
-            });
+        auto it = mWindows.find(id);
 
         if (it == mWindows.end())
         {
@@ -91,16 +80,16 @@ namespace Kryos
             return;
         }
 
-        (*it).Instance->Close();
+        it->second->PClose();
         mWindows.erase(it);
 
         KS_CORE_INFO("Window with ID {} closed.", id);
     }
 
-    void WindowManager::hCloseAllWindow()
+    void WindowManager::HCloseAllWindow()
     {
-        for (auto &container : mWindows)
-            container.Instance->Close();
+        for (auto &[id, window] : mWindows)
+            window->PClose();
         mWindows.clear();
         KS_CORE_INFO("All windows closed.");
     }

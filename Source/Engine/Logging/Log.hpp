@@ -31,5 +31,5 @@
     // Include Client log
 
 #else
-    #error "You must define either USE_CORE or USE_CLIENT before including Log.hpp!"
+    #error "You must define either USE_CORE_LOG or USE_CLIENT_LOG before including Log.hpp!"
 #endif

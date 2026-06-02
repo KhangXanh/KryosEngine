@@ -6,6 +6,8 @@
 #define USE_CORE_LOG
 #include "Logging/Log.hpp"
 #include "GLFWWindow.hpp"
+#include "Core/Event/WindowEvents.hpp"
+#include "Core/Event/EventBus.hpp"
 
 namespace Kryos
 {
@@ -48,12 +50,7 @@ namespace Kryos
         return static_cast<UInt32>(height);
     }
 
-    bool GLFWWindow::ShouldClose() const
-    {
-        return glfwWindowShouldClose(mWindow);
-    }
-
-    void GLFWWindow::Close()
+    void GLFWWindow::PClose()
     {
         if (mWindow)
         {
@@ -63,9 +60,14 @@ namespace Kryos
         }
     }
 
-    void GLFWWindow::OnUpdate(Float32 dt)
+    void GLFWWindow::OnUpdate()
     {
         glfwPollEvents();
+
+        if (glfwWindowShouldClose(mWindow))
+        {
+            EventBus::Publish<WindowEvents::WindowCloseEvent>(pID);
+        }
     }
 
     void GLFWWindow::SetWindowTitle(const TString &title)

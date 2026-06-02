@@ -3,86 +3,69 @@
  * This is a Kryos Engine Implementation file
  */
 
+#include "Application.hpp"
+
 #define USE_CORE_LOG
 #include "Logging/Log.hpp"
-#include "Application.hpp"
+
+#include "Core/Event/WindowEvents.hpp"
+#include "Core/Event/EventBus.hpp"
 #include "Time/Time.hpp"
-#include <iostream>
 
 namespace Kryos
 {
-    Application::Application()
-        : mWindowManager(CreateUniquePtr<WindowManager>()), mLayerStack(CreateUniquePtr<LayerStack>())
+    Application::Application(const TString &appName)
+        : mApplicationName(appName), mWindowManager(CreateUniquePtr<WindowManager>()), mInputSystem(CreateUniquePtr<InputSystem>())
     {
-        mRunning = true;
+        mInstance = this;
+
+        EventBus::Init();
         mWindowManager->Init();
         Time::Init();
+        KS_CORE_INFO("An application using Kryos Engine named '{}' has been created.", mApplicationName);
     }
 
     void Application::Run()
     {
-        // For debugging
-        Float32 timer = 0.0f;
-        Int32 frameCount = 0;
-
-        // For physics
-        constexpr Float32 FixedDeltaTime = 1.0f / 60.0f;
-        Float32 accumulator = 0.0f;
-
-        while (mRunning)
+        mIsRunning = true;
+        while (mIsRunning)
         {
             Time::Tick();
-            Float32 rawDt = Time::GetUnscaledDeltaTime();
-            Float32 dt = Time::GetDeltaTime();
+            Float32 deltaTime = Time::GetDeltaTime();
 
-            accumulator += rawDt;
+            mWindowManager->Update();
+            HOnUpdate();
 
-            mWindowManager->UpdateAllWindows(rawDt);
-
-            while (accumulator >= FixedDeltaTime)
-            {
-                accumulator -= FixedDeltaTime;
-            }
-
-            // Checking is the application still running
             if (mWindowManager->ShouldCloseAllWindow())
             {
-                mRunning = false;
-                KS_CORE_INFO("The application is closing right now.");
+                mIsRunning = false;
                 break;
             }
 
-            hInternalOnUpdate(dt);        
-
-            timer += rawDt;
-            frameCount++;
-
-            // Debugging
-            if (timer >= 1.0f)
-            {
-                Float32 avgFps = static_cast<Float32>(frameCount) / timer;
-                // KS_CORE_TRACE("FPS avg: {} | Delta Time: {} | Frame count: {}", avgFps, (1000.0f / avgFps), frameCount);
-                timer = 0.0f;
-                frameCount = 0;
-            }
+            mInputSystem->Update();
+            CustomOnUpdate(deltaTime);
+            EventBus::Clear();
         }
-        // After escape the loop, we shutdown the application
-        pCustomShutdown();
-        hInternalShutdown();
+        HShutdown();
     }
 
-    void Application::hInternalOnUpdate(Float32 dt)
+    void Application::HOnUpdate()
     {
-        pCustomOnUpdate(dt);
-        mLayerStack->OnUpdate(dt);
+        const auto &closeEvents = EventBus::GetEvents<WindowEvents::WindowCloseEvent>();
+        for (const auto &event : closeEvents)
+        {
+            mWindowManager->CloseWindow(event.ID);
+        }
     }
 
-    void Application::hInternalShutdown()
+    void Application::HShutdown()
     {
-
-        mLayerStack->OnDetach();
-
+        CustomShutdown();
+        mInputSystem.reset();
         mWindowManager.reset();
-        mLayerStack.reset();
+
+        EventBus::Shutdown();
+        mInstance = nullptr;
+        KS_CORE_INFO("An application using Kryos Engine named '{}' has been closed.", mApplicationName);
     }
 }

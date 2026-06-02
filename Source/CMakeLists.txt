@@ -1,7 +1,7 @@
 # Copyright (c) 2026 Nguyễn Mạnh Khang (Blue). All Rights Reserved.
 # Distributed under the MIT License. (See accompanying file LICENSE or copy at http://opensource.org/licenses/MIT)
 
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.20)
 project(KryosEngine)
 
 # C++23

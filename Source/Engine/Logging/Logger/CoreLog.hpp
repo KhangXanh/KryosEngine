@@ -30,13 +30,13 @@ namespace Kryos
         template <typename... Args>
         static void CoreInfo(std::format_string<Args...> fmt, Args &&...args)
         {
-            LogRaw("INFO", "\033[32m", std::format(fmt, std::forward<Args>(args)...));
+            LogRaw("INFO ", "\033[32m", std::format(fmt, std::forward<Args>(args)...));
         }
 
         template <typename... Args>
         static void CoreWarn(std::format_string<Args...> fmt, Args &&...args)
         {
-            LogRaw("WARN", "\033[33m", std::format(fmt, std::forward<Args>(args)...));
+            LogRaw("WARN ", "\033[33m", std::format(fmt, std::forward<Args>(args)...));
         }
 
         template <typename... Args>

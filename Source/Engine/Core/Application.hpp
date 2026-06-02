@@ -6,86 +6,78 @@
 #pragma once
 
 #include "Window.hpp"
-#include "LayerStack.hpp"
+#include "Core/Input/Input.hpp"
 
 namespace Kryos
 {
     /**
      * @brief
-     * A class for managing the engine system (Base class)
+     * A class to control and manage all the systems (Base class)
      * @note
      * ```text
-     * - We will create an application which inherit from 'Application' outside
+     * - We can make more applications from this class
      * ```
      */
     class KRYOS_API Application
     {
     public:
-        Application();
-        virtual ~Application() = default;
-
-        /**
-         * @brief
-         * This function runs the application while it should running (mRunning == true)
-         */
         void Run();
 
+        Application *Get() { return mInstance; }
+
     protected:
-        /**
-         * @brief
-         * This function can be modify (override) on each application to create custom update function
-         */
-        virtual void pCustomOnUpdate(Float32 dt) {};
+        /// @note We don't want other class call this except derived classes
+        /// @param appName A name for the application
+        Application(const TString &appName);
 
         /**
          * @brief
-         * This function can be modify (override) on each application to create custom shutdown function
-         */
-        virtual void pCustomShutdown() {};
+         * This function will be call in every frame to update the 
+         * @param dt The delta time
+         * @note
+         * ```text
+         * - Derived classes will overrided this function
+         * ```
+         */ 
+        virtual void CustomOnUpdate(Float32 dt) = 0;
 
-        virtual void pCustomOnEvent(IEvent& event) {}
+        /**
+         * @brief
+         * This function will be call in internal shutdown function
+         * @note
+         * ```text
+         * - Derived classes will overrided this function
+         * ```
+         */ 
+        virtual void CustomShutdown() = 0;
 
-        LayerStack *GetLayerStack() { return mLayerStack.get(); }
         WindowManager *GetWindowManager() { return mWindowManager.get(); }
+        InputSystem *GetInputSystem() { return mInputSystem.get(); }
 
     private:
         /**
          * @brief
-         * This function updates the application in run's loop
-         * @param[in] dt Delta time (a.k.a the time between each frame)
-         * @note
-         * ```text
-         * - It calls the 'CustomOnUpdate(dt)' and do its stuff
-         * ```
+         * This function will be call in every frame to update the application
          */
-        void hInternalOnUpdate(Float32 dt);
+        void HOnUpdate();
+
         /**
          * @brief
-         * This function shutdowns the application
-         * @note
-         * ```text
-         * - It calls the 'CustomShutdown()' and do its stuff
-         * ```
+         * This function shuts down the application at the end of the run's loop
          */
-        void hInternalShutdown();
+        void HShutdown();
 
     private:
-        bool mRunning;
-
         TUniquePtr<WindowManager> mWindowManager;
-        TUniquePtr<LayerStack> mLayerStack;
+        TUniquePtr<InputSystem> mInputSystem;
+        bool mIsRunning = false;
+
+        /// @note For debugging
+        TString mApplicationName;
+        /// @brief The application itself
+        Application *mInstance;
     };
 
-    /**
-     * @brief
-     * This function creates a new applcation
-     * @note
-     * ```text
-     * - Client (other applications) will define it outside of the engine
-     * - Meaning this function is a bridge from engine to the application
-     * ```
-     */
-    Application *CreateApplication();
+    /// @brief This function will be implement in cilents (Derived classes of 'Application')
+    Application* CreateApplication();
 }
-
-int main(int argc, char **argv);

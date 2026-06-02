@@ -17,14 +17,16 @@
  *
  * *** Functions / Methods: ***
  * - FuncName()  : Public methods (PascalCase)
- * - hFuncName() : Private helper methods ('h' prefix for Helper)
- * - pFuncName() : Protected helper methods ('p' prefix for Protected)
+ * - HFuncName() : Private helper methods ('H' prefix for Helper)
+ * - PFuncName() : Protected helper methods ('P' prefix for Protected)
  * ```
  */
 
 #include <memory>
 #include <cstdint>
 #include <vector>
+#include <unordered_map>
+#include <map>
 #include <functional>
 
 #include <string>
@@ -34,68 +36,68 @@
 #include <limits> // For checking Floating-Point Standard
 
 #if defined(_WIN32)
-    #if defined(_WIN64)
-        #define PLATFORM_WINDOWS // Macro for Windows platform
-    #else
-        #error "Only support Windows 64-bit!"
-    #endif
+#if defined(_WIN64)
+#define PLATFORM_WINDOWS // Macro for Windows platform
+#else
+#error "Only support Windows 64-bit!"
+#endif
 
 #elif defined(__APPLE__) || defined(__MACH__)
-    #include <TargetConditionals.h>
-    #if TARGET_OS_OSX == 1
-        #define PLATFORM_MACOS // Macro for macOS platform
-    #else
-        #error "Only support macOS!"
-    #endif
+#include <TargetConditionals.h>
+#if TARGET_OS_OSX == 1
+#define PLATFORM_MACOS // Macro for macOS platform
+#else
+#error "Only support macOS!"
+#endif
 
 #elif defined(__linux__) // Macro for Linux
-    #define PLATFORM_LINUX
+#define PLATFORM_LINUX
 
 #else
-    #error "This platform is not supported!"
+#error "This platform is not supported!"
 #endif
 
 #if defined(PLATFORM_WINDOWS)
-    #if defined(KRYOS_ENGINE_EXPORT)
-        #define KRYOS_API __declspec(dllexport)
-    #else
-        #define KRYOS_API __declspec(dllimport)
-    #endif
+#if defined(KRYOS_ENGINE_EXPORT)
+#define KRYOS_API __declspec(dllexport)
 #else
-    #define KRYOS_API
+#define KRYOS_API __declspec(dllimport)
+#endif
+#else
+#define KRYOS_API
 #endif
 
 /// @note All the compiler attrubutes wrap in macros
 #if defined(__has_cpp_attribute) && __has_cpp_attribute(nodiscard)
-    #define KS_NODISCARD [[nodiscard]]
+#define KS_NODISCARD [[nodiscard]]
 #else
-    #define KS_NODISCARD
+#define KS_NODISCARD
 #endif
 
 #if defined(__has_cpp_attribute) && __has_cpp_attribute(maybe_unused)
-    #define KS_UNUSED [[maybe_unused]]
+#define KS_UNUSED [[maybe_unused]]
 #else
-    #define KS_UNUSED
+#define KS_UNUSED
 #endif
 
 #if defined(__has_cpp_attribute) && __has_cpp_attribute(fallthrough)
-    #define KS_FALLTHROUGH [[fallthrough]]
+#define KS_FALLTHROUGH [[fallthrough]]
 #else
-    #define KS_FALLTHROUGH
+#define KS_FALLTHROUGH
 #endif
 
 #if defined(__has_cpp_attribute) && __has_cpp_attribute(deprecated)
-    #define KS_DEPRECATED(msg) [[deprecated(msg)]]
+#define KS_DEPRECATED(msg) [[deprecated(msg)]]
 #else
-    #define KS_DEPRECATED(msg)
+#define KS_DEPRECATED(msg)
 #endif
 
 #if defined(__has_cpp_attribute) && __has_cpp_attribute(likely) && __has_cpp_attribute(unlikely)
-    #define BE_LIKELY [[likely]]
-    #define BE_UNLIKELY [[unlikely]]
+#define BE_LIKELY [[likely]]
+#define BE_UNLIKELY [[unlikely]]
 #else
-    #define BE_LIKELY
-    #define BE_UNLIKELY
+#define BE_LIKELY
+#define BE_UNLIKELY
 #endif
 
 // An utility for bit calulation
@@ -163,12 +165,17 @@ inline constexpr TSharedPtr<T> CreateSharedPtr(Args &&...args)
 /**
  * @brief
  * A custom string for Kryos Engine
+ * @todo
+ * ```text
+ * - For now we are using std::string
+ * - But we will make a custom string
+ * ```
  */
 using TString = std::string;
 
 /**
  * @brief
- * A custom dynamic array (a.k.a vector) for Kryos Engine
+ * A custom dynamic array for Kryos Engine
  * @todo
  * ```text
  * - For now we are using std::vector
@@ -177,6 +184,25 @@ using TString = std::string;
  */
 template <typename T>
 using TDynamicArray = std::vector<T>;
+
+/**
+ * @brief
+ * A custom hash table for Kryos Engine
+ * @todo
+ * ```text
+ * - For now we are using std::unordered_map for core
+ * - But we will make a cutom hash table with our algorithms
+ * ```
+ */
+template <typename T, typename U>
+class THashTable : public std::unordered_map<T, U>
+{
+public:
+    bool Contains(const T &key) const
+    {
+        return this->find(key) != this->end();
+    }
+};
 
 using UInt8 = std::uint8_t;   // @brief uint8_t
 using UInt16 = std::uint16_t; // @brief uint16_t

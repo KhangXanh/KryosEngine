@@ -6,6 +6,7 @@
 #pragma once
 
 #include "Core/Window.hpp" /// @note Already contains <cstdint>
+#include "Core/Event/InputEvents.hpp"
 
 /// @details Forward declare
 #if defined(PLATFORM_WINDOWS)
@@ -50,10 +51,8 @@ namespace Kryos
         UInt32 GetWidth() const override;
         UInt32 GetHeight() const override;
 
-        bool ShouldClose() const override;
-
-        void Close() override;
-        void OnUpdate(Float32 dt) override;
+        void PClose() override;
+        void OnUpdate() override;
         void SetWindowTitle(const TString &title) override;
 
     private:
@@ -62,13 +61,15 @@ namespace Kryos
          * This function converts from TString (a.k.a td::string) to std::wstring
          * @param[in] string The string to convert
          */
-        std::wstring hStringToWString(const TString &string);
+        std::wstring HStringToWString(const TString &string);
 
         /**
          * @brief
          * This function is the Win32 callback
          */
-        static EngineLRESULT CALLBACK hWndProc(HWND hWnd, EngineUINT Message, EngineWPARAM wParam, EngineLPARAM lParam);
+        static EngineLRESULT CALLBACK HWndProc(HWND hWnd, EngineUINT Message, EngineWPARAM wParam, EngineLPARAM lParam);
+
+        static Key HTranslateWin32Key(EngineWPARAM wParam, EngineLPARAM lParam);
 
     private:
         HINSTANCE mHInstance = nullptr;
@@ -76,8 +77,6 @@ namespace Kryos
 
         UInt32 mWidth;
         UInt32 mHeight;
-
-        bool mShouldClose;
     };
 
 #else // If the platform is not Windows
@@ -100,9 +99,7 @@ namespace Kryos
         UInt32 GetWidth() const override { return mProperties.Width; };
         UInt32 GetHeight() const override { return mProperties.Height; };
 
-        bool ShouldClose() const override { return true; };
-
-        void Close() override {};
+        void PClose() override {};
         void OnUpdate(Float32 dt) override {};
         void SetWindowTitle(const TString &title) override {};
 

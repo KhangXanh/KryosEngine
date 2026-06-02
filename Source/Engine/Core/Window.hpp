@@ -37,25 +37,9 @@ namespace Kryos
      */
     class KRYOS_API IWindow
     {
+        friend class WindowManager;
     public:
         virtual ~IWindow() = default;
-
-        /**
-         * @brief
-         * A function to create a new window using the WindowProperties
-         * @param[in] properties The window properties for creating window
-         * @return
-         * ```text
-         * TUniquePtr<IWindow> (a.k.a std::unique_ptr<IWindow> / The window ifself)
-         * ```
-         * @note
-         * ```text
-         * - We need constant reference for safety and better performace
-         * - The reference (&) don't copy all the data (deep copy), so the performace is better
-         * - We use 'const' to prevent modifying value, which will cause error
-         * ```
-         */
-        static TUniquePtr<IWindow> CreateWindow(const WindowProperties &properties);
 
         /**
          * @brief
@@ -99,34 +83,9 @@ namespace Kryos
 
         /**
          * @brief
-         * This function checks if the window should close
-         * @return
-         * ```text
-         * boolean (true / false)
-         * ```
-         * @note
-         * ```text
-         * - We use 'const' to prevent modifying value
-         * ```
+         * This function updates the window and polls all events every frame in the application's run loop
          */
-        virtual bool ShouldClose() const = 0;
-
-        /**
-         * @brief
-         * This function closes the window
-         */
-        virtual void Close() = 0;
-
-        /**
-         * @brief
-         * This function updates the window every frame in the application's run loop
-         * @param[in] dt The delta time
-         * @note
-         * ```text
-         * - We need delta time to keep game speed consistent across different hardware
-         * ```
-         */
-        virtual void OnUpdate(Float32 dt) = 0;
+        virtual void OnUpdate() = 0;
 
         /**
          * @brief
@@ -134,6 +93,34 @@ namespace Kryos
          * @param[in] title The name of the new title
          */
         virtual void SetWindowTitle(const TString &title) = 0;
+
+    private:
+        /**
+         * @brief
+         * A function to create a new window using the WindowProperties
+         * @param[in] properties The window properties for creating window
+         * @return
+         * ```text
+         * TUniquePtr<IWindow> (a.k.a std::unique_ptr<IWindow> / The window ifself)
+         * ```
+         * @note
+         * ```text
+         * - We need constant reference for safety and better performace
+         * - The reference (&) don't copy all the data (deep copy), so the performace is better
+         * - We use 'const' to prevent modifying value, which will cause error
+         * ```
+         */
+        static TUniquePtr<IWindow> HCreateWindow(const WindowProperties &properties);
+
+    protected:
+         /**
+         * @brief
+         * This function closes the window
+         */
+        virtual void PClose() = 0;
+    
+    protected:
+        WindowID pID;
     };
 
     /**
@@ -195,14 +182,8 @@ namespace Kryos
         /**
          * @brief
          * This function updates all the windows in 'mWindows'
-         * @note
-         * ```text
-         * - This function updates and checks every window in 'mWindows'
-         * - When a window want to close (ShouldClose() == true)
-         * - We will close that window
-         * ```
          */
-        void UpdateAllWindows(Float32 dt);
+        void Update();
 
         /**
          * @brief
@@ -238,28 +219,19 @@ namespace Kryos
          * - This function closes all the windows forcibly and unexpectedly (Can be use in debug)
          * ```
          */
-        void hCloseAllWindow();
+        void HCloseAllWindow();
         friend class Application;
 
     private:
-
-        struct WindowContainer
-        {
-            WindowID ID;
-            TUniquePtr<IWindow> Instance;
-        };
-
         /**
          * @brief
-         * A dynamic array (a.k.a std::vector) to manage and contain 'IWindow'
+         * A hash table (a.k.a std::vector) to manage and contain 'IWindow' and 'WindowID'
+         * @note
+         * ```text
+         * - We use hash table for O(1) instead of dynamic array which only have O(n)
+         * ```
          */
-        TDynamicArray<WindowContainer> mWindows;
-
-        /**
-         * @brief
-         * A dynamic array (a.k.a std::vector) to contain should close windows's ID
-         */
-        TDynamicArray<WindowID> mWindowsToClose;
+        THashTable<WindowID, TUniquePtr<IWindow>> mWindows;
 
         /**
          * @brief

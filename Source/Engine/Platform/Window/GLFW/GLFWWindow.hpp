@@ -18,6 +18,10 @@ namespace Kryos
      * - This is only supported on the Linux platform
      * - You can use it on other platform but we don't recommend it
      * ```
+     * @todo
+     * ```text
+     * - Handle the input event for Linux
+     * ```
      */
     class GLFWWindow : public IWindow
     {
@@ -29,10 +33,8 @@ namespace Kryos
         UInt32 GetWidth() const override;
         UInt32 GetHeight() const override;
 
-        bool ShouldClose() const override;
-
-        void Close() override;
-        void OnUpdate(Float32 dt) override;
+        void PClose() override;
+        void OnUpdate() override;
         void SetWindowTitle(const TString &title) override;
 
     private:
