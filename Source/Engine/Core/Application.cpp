@@ -43,7 +43,7 @@ namespace Kryos
             }
 
             mInputSystem->Update();
-            CustomOnUpdate(deltaTime);
+            PCustomOnUpdate(deltaTime);
             EventBus::Clear();
         }
         HShutdown();
@@ -60,7 +60,7 @@ namespace Kryos
 
     void Application::HShutdown()
     {
-        CustomShutdown();
+        PCustomShutdown();
         mInputSystem.reset();
         mWindowManager.reset();
 

@@ -140,10 +140,10 @@ file(GLOB_RECURSE ENGINE_SOURCES CONFIGURE_DEPENDS
     "Engine/Core/Core.hpp"
 )
 
-file(GLOB_RECURSE STUDIO_SOURCES CONFIGURE_DEPENDS
-    "Studio/*.cpp"
-    "Studio/*.hpp"
-    "Studio/*.h"
+file(GLOB_RECURSE APPLICATION_SOURCES CONFIGURE_DEPENDS
+    "Applications/*.cpp"
+    "Applications/*.hpp"
+    "Applications/*.h"
 )
 # -------------------------------------------------------------------
 
@@ -205,10 +205,10 @@ endif()
 
 # The main executable
 # -------------------------------------------------------------------
-add_executable(KryosStudio ${STUDIO_SOURCES})
+add_executable(KryosStudio ${APPLICATION_SOURCES})
 
 target_include_directories(KryosStudio PRIVATE
-    "${CMAKE_SOURCE_DIR}/Studio"
+    "${CMAKE_SOURCE_DIR}/Applications"
     "${CMAKE_SOURCE_DIR}/Engine"
     "${CMAKE_SOURCE_DIR}"
     ${GLM_DIR}
