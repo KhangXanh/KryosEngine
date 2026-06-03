@@ -17,7 +17,7 @@
  *
  * *** Functions / Methods: ***
  * - FuncName()  : Public methods (PascalCase)
- * - HFuncName() : Private helper methods ('H' prefix for Helper)
+ * - HFuncName() : Private hidden methods ('H' prefix for Hidden)
  * - PFuncName() : Protected helper methods ('P' prefix for Protected)
  * ```
  */

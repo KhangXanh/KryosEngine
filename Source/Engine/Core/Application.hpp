@@ -39,7 +39,7 @@ namespace Kryos
          * - Derived classes will overrided this function
          * ```
          */ 
-        virtual void CustomOnUpdate(Float32 dt) = 0;
+        virtual void PCustomOnUpdate(Float32 dt) = 0;
 
         /**
          * @brief
@@ -49,10 +49,10 @@ namespace Kryos
          * - Derived classes will overrided this function
          * ```
          */ 
-        virtual void CustomShutdown() = 0;
+        virtual void PCustomShutdown() = 0;
 
-        WindowManager *GetWindowManager() { return mWindowManager.get(); }
-        InputSystem *GetInputSystem() { return mInputSystem.get(); }
+        WindowManager *PGetWindowManager() { return mWindowManager.get(); }
+        InputSystem *PGetInputSystem() { return mInputSystem.get(); }
 
     private:
         /**
