@@ -14,29 +14,29 @@ namespace Kryos
         KryosStudio() : Application("KryoStudio")
         {
             WindowProperties launcherProps{"Kryos Launcher", 1280, 720};
-            mLauncherID = GetWindowManager()->AddWindow(launcherProps);
+            mLauncherID = PGetWindowManager()->AddWindow(launcherProps);
 
             WindowProperties editorProps{"Editor", 1280, 720};
-            mEditorID = GetWindowManager()->AddWindow(editorProps);
+            mEditorID = PGetWindowManager()->AddWindow(editorProps);
         }
 
-        void CustomOnUpdate(Float32 dt) override
+        void PCustomOnUpdate(Float32 dt) override
         {
-            if (GetInputSystem()->IsKeyPressed(Key::A))
+            if (PGetInputSystem()->IsKeyPressed(Key::A))
             {
                 KS_CORE_TRACE("A is pressing");
             }
-            if (GetInputSystem()->IsKeyPressed(Key::B))
+            if (PGetInputSystem()->IsKeyPressed(Key::B))
             {
                 KS_CORE_TRACE("B is pressing");
             }
-            if (GetInputSystem()->IsMousePressed(MouseButton::LeftButton))
+            if (PGetInputSystem()->IsMousePressed(MouseButton::LeftButton))
             {
                 KS_CORE_TRACE("Left button is pressed");
             }
         }
 
-        void CustomShutdown() override
+        void PCustomShutdown() override
         {
 
         }
