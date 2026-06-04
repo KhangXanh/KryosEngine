@@ -70,7 +70,7 @@ namespace Kryos
         }
     }
 
-    void GLFWWindow::SetWindowTitle(const TString &title)
+    void GLFWWindow::SetWindowTitle(const String &title)
     {
         glfwSetWindowTitle(mWindow, title.c_str());
     }

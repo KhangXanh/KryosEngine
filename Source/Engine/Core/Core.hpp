@@ -9,16 +9,23 @@
  * @note
  * ```text
  * Kryos Engine naming convention
- * *** Variable: ***
+ * 
+ * ====================== Class/Struct members: ======================
+ *** Variable:
  * - VarName  : Public member variables (PascalCase)
  * - mVarName : Private member variables ('m' prefix for Member)
  * - pVarName : Protected member variables ('p' prefix for Protected)
  * - sVarName : Static member variables ('s' prefix for Static)
  *
- * *** Functions / Methods: ***
+ *** Functions / Methods:
  * - FuncName()  : Public methods (PascalCase)
  * - HFuncName() : Private hidden methods ('H' prefix for Hidden)
  * - PFuncName() : Protected helper methods ('P' prefix for Protected)
+ * 
+ * =================== Data Types/Classes/Structs: ===================
+ * - IClassName  : Interfaces / Pure Abstract Classes ('I' prefix for Interface)
+ * - TClassName  : Templates / Generic Classes ('T' prefix for Template Type)
+ * - ClassName   : Concrete Classes / Value Types (PascalCase, no prefix)
  * ```
  */
 
@@ -171,7 +178,7 @@ inline constexpr TSharedPtr<T> CreateSharedPtr(Args &&...args)
  * - But we will make a custom string
  * ```
  */
-using TString = std::string;
+using String = std::string;
 
 /**
  * @brief

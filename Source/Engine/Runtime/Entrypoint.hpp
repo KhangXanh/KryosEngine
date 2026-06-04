@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Entrypoint.hpp
+ * @file Engine/Runtime/Entrypoint.hpp
  * This is a Kryos Engine Library header
  */
 

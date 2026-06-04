@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Window.hpp
+ * @file Engine/Window/Window.hpp
  * This is a Kryos Engine Library header
  */
 
@@ -18,11 +18,11 @@ namespace Kryos
      */
     struct KRYOS_API WindowProperties
     {
-        TString Name;
+        String Name;
         UInt32 Width;
         UInt32 Height;
 
-        WindowProperties(TString name, UInt32 width, UInt32 height)
+        WindowProperties(String name, UInt32 width, UInt32 height)
             : Name(name), Width(width), Height(height) {}
     };
 
@@ -92,7 +92,7 @@ namespace Kryos
          * This function change the window title bar name
          * @param[in] title The name of the new title
          */
-        virtual void SetWindowTitle(const TString &title) = 0;
+        virtual void SetWindowTitle(const String &title) = 0;
 
     private:
         /**

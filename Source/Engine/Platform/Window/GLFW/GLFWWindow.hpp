@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Core/Window.hpp"
+#include "Window/Window.hpp"
 #include <GLFW/glfw3.h>
 
 namespace Kryos
@@ -35,7 +35,7 @@ namespace Kryos
 
         void PClose() override;
         void OnUpdate() override;
-        void SetWindowTitle(const TString &title) override;
+        void SetWindowTitle(const String &title) override;
 
     private:
         GLFWwindow *mWindow = nullptr;

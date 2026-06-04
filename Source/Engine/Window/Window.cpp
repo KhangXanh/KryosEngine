@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Window.cpp
+ * @file Engine/Window/Window.cpp
  * This is a Kryos Engine Implementation file
  */
 
@@ -83,7 +83,7 @@ namespace Kryos
         it->second->PClose();
         mWindows.erase(it);
 
-        KS_CORE_INFO("Window with ID {} closed.", id);
+        KS_CORE_INFO("A Window with ID {} closed.", id);
     }
 
     void WindowManager::HCloseAllWindow()

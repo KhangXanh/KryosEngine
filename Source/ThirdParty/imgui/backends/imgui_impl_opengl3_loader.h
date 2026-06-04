@@ -200,7 +200,7 @@ typedef void (APIENTRYP PFNGLPIXELSTOREIPROC) (GLenum pname, GLint param);
 typedef void (APIENTRYP PFNGLREADPIXELSPROC) (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void *pixels);
 typedef GLenum (APIENTRYP PFNGLGETERRORPROC) (void);
 typedef void (APIENTRYP PFNGLGETINTEGERVPROC) (GLenum pname, GLint *data);
-typedef const GLubyte *(APIENTRYP PFNGLGETSTRINGPROC) (GLenum name);
+typedef const GLubyte *(APIENTRYP PFNGLGEStringPROC) (GLenum name);
 typedef GLboolean (APIENTRYP PFNGLISENABLEDPROC) (GLenum cap);
 typedef void (APIENTRYP PFNGLVIEWPORTPROC) (GLint x, GLint y, GLsizei width, GLsizei height);
 #ifdef GL_GLEXT_PROTOTYPES
@@ -217,7 +217,7 @@ GLAPI void APIENTRY glPixelStorei (GLenum pname, GLint param);
 GLAPI void APIENTRY glReadPixels (GLint x, GLint y, GLsizei width, GLsizei height, GLenum format, GLenum type, void *pixels);
 GLAPI GLenum APIENTRY glGetError (void);
 GLAPI void APIENTRY glGetIntegerv (GLenum pname, GLint *data);
-GLAPI const GLubyte *APIENTRY glGetString (GLenum name);
+GLAPI const GLubyte *APIENTRY glGeString (GLenum name);
 GLAPI GLboolean APIENTRY glIsEnabled (GLenum cap);
 GLAPI void APIENTRY glViewport (GLint x, GLint y, GLsizei width, GLsizei height);
 #endif
@@ -370,12 +370,12 @@ typedef khronos_uint16_t GLhalf;
 #define GL_VERTEX_ARRAY_BINDING           0x85B5
 typedef void (APIENTRYP PFNGLGETBOOLEANI_VPROC) (GLenum target, GLuint index, GLboolean *data);
 typedef void (APIENTRYP PFNGLGETINTEGERI_VPROC) (GLenum target, GLuint index, GLint *data);
-typedef const GLubyte *(APIENTRYP PFNGLGETSTRINGIPROC) (GLenum name, GLuint index);
+typedef const GLubyte *(APIENTRYP PFNGLGEStringIPROC) (GLenum name, GLuint index);
 typedef void (APIENTRYP PFNGLBINDVERTEXARRAYPROC) (GLuint array);
 typedef void (APIENTRYP PFNGLDELETEVERTEXARRAYSPROC) (GLsizei n, const GLuint *arrays);
 typedef void (APIENTRYP PFNGLGENVERTEXARRAYSPROC) (GLsizei n, GLuint *arrays);
 #ifdef GL_GLEXT_PROTOTYPES
-GLAPI const GLubyte *APIENTRY glGetStringi (GLenum name, GLuint index);
+GLAPI const GLubyte *APIENTRY glGeStringi (GLenum name, GLuint index);
 GLAPI void APIENTRY glBindVertexArray (GLuint array);
 GLAPI void APIENTRY glDeleteVertexArrays (GLsizei n, const GLuint *arrays);
 GLAPI void APIENTRY glGenVertexArrays (GLsizei n, GLuint *arrays);
@@ -533,8 +533,8 @@ union ImGL3WProcs {
         PFNGLGETPROGRAMIVPROC             GetProgramiv;
         PFNGLGETSHADERINFOLOGPROC         GetShaderInfoLog;
         PFNGLGETSHADERIVPROC              GetShaderiv;
-        PFNGLGETSTRINGPROC                GetString;
-        PFNGLGETSTRINGIPROC               GetStringi;
+        PFNGLGEStringPROC                GeString;
+        PFNGLGEStringIPROC               GeStringi;
         PFNGLGETUNIFORMLOCATIONPROC       GetUniformLocation;
         PFNGLGETVERTEXATTRIBPOINTERVPROC  GetVertexAttribPointerv;
         PFNGLGETVERTEXATTRIBIVPROC        GetVertexAttribiv;
@@ -602,8 +602,8 @@ GL3W_API extern union ImGL3WProcs imgl3wProcs;
 #define glGetProgramiv                    imgl3wProcs.gl.GetProgramiv
 #define glGetShaderInfoLog                imgl3wProcs.gl.GetShaderInfoLog
 #define glGetShaderiv                     imgl3wProcs.gl.GetShaderiv
-#define glGetString                       imgl3wProcs.gl.GetString
-#define glGetStringi                      imgl3wProcs.gl.GetStringi
+#define glGeString                       imgl3wProcs.gl.GeString
+#define glGeStringi                      imgl3wProcs.gl.GeStringi
 #define glGetUniformLocation              imgl3wProcs.gl.GetUniformLocation
 #define glGetVertexAttribPointerv         imgl3wProcs.gl.GetVertexAttribPointerv
 #define glGetVertexAttribiv               imgl3wProcs.gl.GetVertexAttribiv
@@ -827,7 +827,7 @@ static int parse_version(void)
     if (version.major == 0 && version.minor == 0)
     {
         // Query GL_VERSION in desktop GL 2.x, the string will start with "<major>.<minor>"
-        if (const char* gl_version = (const char*)glGetString(GL_VERSION))
+        if (const char* gl_version = (const char*)glGeString(GL_VERSION))
             sscanf(gl_version, "%d.%d", &version.major, &version.minor);
     }
     if (version.major < 2)
@@ -912,8 +912,8 @@ static const char *proc_names[] = {
     "glGetProgramiv",
     "glGetShaderInfoLog",
     "glGetShaderiv",
-    "glGetString",
-    "glGetStringi",
+    "glGeString",
+    "glGeStringi",
     "glGetUniformLocation",
     "glGetVertexAttribPointerv",
     "glGetVertexAttribiv",

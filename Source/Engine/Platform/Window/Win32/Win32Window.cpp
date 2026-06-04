@@ -101,7 +101,7 @@ namespace Kryos
         KS_CORE_INFO("A window with Win32 API has been closed.");
     }
 
-    void Win32Window::SetWindowTitle(const TString &title)
+    void Win32Window::SetWindowTitle(const String &title)
     {
         if (mHWnd)
         {
@@ -109,7 +109,7 @@ namespace Kryos
         }
     }
 
-    std::wstring Win32Window::HStringToWString(const TString &string)
+    std::wstring Win32Window::HStringToWString(const String &string)
     {
         if (string.empty())
         {

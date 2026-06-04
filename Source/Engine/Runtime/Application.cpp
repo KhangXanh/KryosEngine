@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Application.cpp
+ * @file Engine/Runtime/Application.cpp
  * This is a Kryos Engine Implementation file
  */
 
@@ -14,7 +14,7 @@
 
 namespace Kryos
 {
-    Application::Application(const TString &appName)
+    Application::Application(const String &appName)
         : mApplicationName(appName), mWindowManager(CreateUniquePtr<WindowManager>()), mInputSystem(CreateUniquePtr<InputSystem>())
     {
         mInstance = this;

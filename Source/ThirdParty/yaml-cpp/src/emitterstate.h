@@ -82,8 +82,8 @@ class EmitterState {
   bool SetOutputCharset(EMITTER_MANIP value, FmtScope::value scope);
   EMITTER_MANIP GetOutputCharset() const { return m_charset.get(); }
 
-  bool SetStringFormat(EMITTER_MANIP value, FmtScope::value scope);
-  EMITTER_MANIP GetStringFormat() const { return m_strFmt.get(); }
+  bool SeStringFormat(EMITTER_MANIP value, FmtScope::value scope);
+  EMITTER_MANIP GeStringFormat() const { return m_strFmt.get(); }
 
   bool SetBoolFormat(EMITTER_MANIP value, FmtScope::value scope);
   EMITTER_MANIP GetBoolFormat() const { return m_boolFmt.get(); }

@@ -173,7 +173,7 @@ static int get_exts(void) {
 #ifdef _GLAD_IS_SOME_NEW_VERSION
     if(max_loaded_major < 3) {
 #endif
-        exts = (const char *)glGetString(GL_EXTENSIONS);
+        exts = (const char *)glGeString(GL_EXTENSIONS);
 #ifdef _GLAD_IS_SOME_NEW_VERSION
     } else {
         int index;
@@ -189,7 +189,7 @@ static int get_exts(void) {
         }
 
         for(index = 0; index < num_exts_i; index++) {
-            const char *gl_str_tmp = (const char*)glGetStringi(GL_EXTENSIONS, index);
+            const char *gl_str_tmp = (const char*)glGeStringi(GL_EXTENSIONS, index);
             size_t len = strlen(gl_str_tmp);
 
             char *local_str = (char*)malloc((len+1) * sizeof(char));
@@ -632,8 +632,8 @@ PFNGLGETSHADERINFOLOGPROC glad_glGetShaderInfoLog = NULL;
 PFNGLGETSHADERPRECISIONFORMATPROC glad_glGetShaderPrecisionFormat = NULL;
 PFNGLGETSHADERSOURCEPROC glad_glGetShaderSource = NULL;
 PFNGLGETSHADERIVPROC glad_glGetShaderiv = NULL;
-PFNGLGETSTRINGPROC glad_glGetString = NULL;
-PFNGLGETSTRINGIPROC glad_glGetStringi = NULL;
+PFNGLGEStringPROC glad_glGeString = NULL;
+PFNGLGEStringIPROC glad_glGeStringi = NULL;
 PFNGLGETSUBROUTINEINDEXPROC glad_glGetSubroutineIndex = NULL;
 PFNGLGETSUBROUTINEUNIFORMLOCATIONPROC glad_glGetSubroutineUniformLocation = NULL;
 PFNGLGETSYNCIVPROC glad_glGetSynciv = NULL;
@@ -1363,7 +1363,7 @@ static void load_GL_VERSION_1_0(GLADloadproc load) {
 	glad_glGetError = (PFNGLGETERRORPROC)load("glGetError");
 	glad_glGetFloatv = (PFNGLGETFLOATVPROC)load("glGetFloatv");
 	glad_glGetIntegerv = (PFNGLGETINTEGERVPROC)load("glGetIntegerv");
-	glad_glGetString = (PFNGLGETSTRINGPROC)load("glGetString");
+	glad_glGeString = (PFNGLGEStringPROC)load("glGeString");
 	glad_glGetTexImage = (PFNGLGETTEXIMAGEPROC)load("glGetTexImage");
 	glad_glGetTexParameterfv = (PFNGLGETTEXPARAMETERFVPROC)load("glGetTexParameterfv");
 	glad_glGetTexParameteriv = (PFNGLGETTEXPARAMETERIVPROC)load("glGetTexParameteriv");
@@ -1956,7 +1956,7 @@ static void load_GL_VERSION_3_0(GLADloadproc load) {
 	glad_glClearBufferuiv = (PFNGLCLEARBUFFERUIVPROC)load("glClearBufferuiv");
 	glad_glClearBufferfv = (PFNGLCLEARBUFFERFVPROC)load("glClearBufferfv");
 	glad_glClearBufferfi = (PFNGLCLEARBUFFERFIPROC)load("glClearBufferfi");
-	glad_glGetStringi = (PFNGLGETSTRINGIPROC)load("glGetStringi");
+	glad_glGeStringi = (PFNGLGEStringIPROC)load("glGeStringi");
 	glad_glIsRenderbuffer = (PFNGLISRENDERBUFFERPROC)load("glIsRenderbuffer");
 	glad_glBindRenderbuffer = (PFNGLBINDRENDERBUFFERPROC)load("glBindRenderbuffer");
 	glad_glDeleteRenderbuffers = (PFNGLDELETERENDERBUFFERSPROC)load("glDeleteRenderbuffers");
@@ -2455,7 +2455,7 @@ static void find_coreGL(void) {
         NULL
     };
 
-    version = (const char*) glGetString(GL_VERSION);
+    version = (const char*) glGeString(GL_VERSION);
     if (!version) return;
 
     for (i = 0;  prefixes[i];  i++) {
@@ -2502,9 +2502,9 @@ static void find_coreGL(void) {
 
 int gladLoadGLLoader(GLADloadproc load) {
 	GLVersion.major = 0; GLVersion.minor = 0;
-	glGetString = (PFNGLGETSTRINGPROC)load("glGetString");
-	if(glGetString == NULL) return 0;
-	if(glGetString(GL_VERSION) == NULL) return 0;
+	glGeString = (PFNGLGEStringPROC)load("glGeString");
+	if(glGeString == NULL) return 0;
+	if(glGeString(GL_VERSION) == NULL) return 0;
 	find_coreGL();
 	load_GL_VERSION_1_0(load);
 	load_GL_VERSION_1_1(load);

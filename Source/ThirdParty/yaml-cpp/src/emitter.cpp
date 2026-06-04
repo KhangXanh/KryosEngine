@@ -34,8 +34,8 @@ bool Emitter::SetOutputCharset(EMITTER_MANIP value) {
   return m_pState->SetOutputCharset(value, FmtScope::Global);
 }
 
-bool Emitter::SetStringFormat(EMITTER_MANIP value) {
-  return m_pState->SetStringFormat(value, FmtScope::Global);
+bool Emitter::SeStringFormat(EMITTER_MANIP value) {
+  return m_pState->SeStringFormat(value, FmtScope::Global);
 }
 
 bool Emitter::SetBoolFormat(EMITTER_MANIP value) {
@@ -704,7 +704,7 @@ void Emitter::StartedScalar() { m_pState->StartedScalar(); }
 // *******************************************************************************************
 // overloads of Write
 
-StringEscaping::value GetStringEscapingStyle(const EMITTER_MANIP emitterManip) {
+StringEscaping::value GeStringEscapingStyle(const EMITTER_MANIP emitterManip) {
   switch (emitterManip) {
     case EscapeNonAscii:
       return StringEscaping::NonAscii;
@@ -720,10 +720,10 @@ Emitter& Emitter::Write(const char* str, std::size_t size) {
   if (!good())
     return *this;
 
-  StringEscaping::value stringEscaping = GetStringEscapingStyle(m_pState->GetOutputCharset());
+  StringEscaping::value stringEscaping = GeStringEscapingStyle(m_pState->GetOutputCharset());
 
   const StringFormat::value strFormat =
-      Utils::ComputeStringFormat(str, size, m_pState->GetStringFormat(),
+      Utils::ComputeStringFormat(str, size, m_pState->GeStringFormat(),
                                  m_pState->CurGroupFlowType(), stringEscaping == StringEscaping::NonAscii);
 
   if (strFormat == StringFormat::Literal || size > 1024)
@@ -852,7 +852,7 @@ Emitter& Emitter::Write(char ch) {
 
 
   PrepareNode(EmitterNodeType::Scalar);
-  Utils::WriteChar(m_stream, ch, GetStringEscapingStyle(m_pState->GetOutputCharset()));
+  Utils::WriteChar(m_stream, ch, GeStringEscapingStyle(m_pState->GetOutputCharset()));
   StartedScalar();
 
   return *this;

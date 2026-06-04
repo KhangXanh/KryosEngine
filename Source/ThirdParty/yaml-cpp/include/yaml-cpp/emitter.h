@@ -54,7 +54,7 @@ class YAML_CPP_API Emitter {
 
   // global setters
   bool SetOutputCharset(EMITTER_MANIP value);
-  bool SetStringFormat(EMITTER_MANIP value);
+  bool SeStringFormat(EMITTER_MANIP value);
   bool SetBoolFormat(EMITTER_MANIP value);
   bool SetNullFormat(EMITTER_MANIP value);
   bool SetIntBase(EMITTER_MANIP value);

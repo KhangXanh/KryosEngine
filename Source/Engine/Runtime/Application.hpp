@@ -1,12 +1,12 @@
 /**
- * @file Engine/Core/Application.hpp
+ * @file Engine/Runtime/Application.hpp
  * This is a Kryos Engine Library header
  */
 
 #pragma once
 
-#include "Window.hpp"
-#include "Core/Input/Input.hpp"
+#include "Window/Window.hpp"
+#include "Input/Input.hpp"
 
 namespace Kryos
 {
@@ -28,18 +28,18 @@ namespace Kryos
     protected:
         /// @note We don't want other class call this except derived classes
         /// @param appName A name for the application
-        Application(const TString &appName);
+        Application(const String &appName);
 
         /**
          * @brief
          * This function will be call in every frame to update the 
-         * @param dt The delta time
+         * @param deltaTime The delta time
          * @note
          * ```text
          * - Derived classes will overrided this function
          * ```
          */ 
-        virtual void PCustomOnUpdate(Float32 dt) = 0;
+        virtual void PCustomOnUpdate(Float32 deltaTime) = 0;
 
         /**
          * @brief
@@ -73,7 +73,7 @@ namespace Kryos
         bool mIsRunning = false;
 
         /// @note For debugging
-        TString mApplicationName;
+        String mApplicationName;
         /// @brief The application itself
         Application *mInstance;
     };

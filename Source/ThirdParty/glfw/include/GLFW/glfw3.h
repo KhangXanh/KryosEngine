@@ -2397,7 +2397,7 @@ GLFWAPI void glfwGetVersion(int* major, int* minor, int* rev);
  *  [version string](@ref intro_version_string) of the GLFW library binary.  It describes
  *  the version, platforms, compiler and any platform or operating system specific
  *  compile-time options.  It should not be confused with the OpenGL or OpenGL ES version
- *  string, queried with `glGetString`.
+ *  string, queried with `glGeString`.
  *
  *  __Do not use the version string__ to parse the GLFW library version.  The
  *  @ref glfwGetVersion function provides the version of the running library
@@ -3009,7 +3009,7 @@ GLFWAPI void glfwSetGammaRamp(GLFWmonitor* monitor, const GLFWgammaramp* ramp);
  *
  *  @sa @ref window_hints
  *  @sa @ref glfwWindowHint
- *  @sa @ref glfwWindowHintString
+ *  @sa @ref glfwWindowHinString
  *
  *  @since Added in version 3.0.
  *
@@ -3024,7 +3024,7 @@ GLFWAPI void glfwDefaultWindowHints(void);
  *  function or @ref glfwDefaultWindowHints, or until the library is terminated.
  *
  *  Only integer value hints can be set with this function.  String value hints
- *  are set with @ref glfwWindowHintString.
+ *  are set with @ref glfwWindowHinString.
  *
  *  This function does not check whether the specified hint values are valid.
  *  If you set hints to invalid values this will instead be reported by the next
@@ -3043,7 +3043,7 @@ GLFWAPI void glfwDefaultWindowHints(void);
  *  @thread_safety This function must only be called from the main thread.
  *
  *  @sa @ref window_hints
- *  @sa @ref glfwWindowHintString
+ *  @sa @ref glfwWindowHinString
  *  @sa @ref glfwDefaultWindowHints
  *
  *  @since Added in version 3.0.  Replaces `glfwOpenWindowHint`.
@@ -3088,7 +3088,7 @@ GLFWAPI void glfwWindowHint(int hint, int value);
  *
  *  @ingroup window
  */
-GLFWAPI void glfwWindowHintString(int hint, const char* value);
+GLFWAPI void glfwWindowHinString(int hint, const char* value);
 
 /*! @brief Creates a window and its associated context.
  *

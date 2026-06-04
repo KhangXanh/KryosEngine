@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "Core/Window.hpp" /// @note Already contains <cstdint>
+#include "Window/Window.hpp" /// @note Already contains <cstdint>
 #include "Core/Event/InputEvents.hpp"
 
 /// @details Forward declare
@@ -53,15 +53,15 @@ namespace Kryos
 
         void PClose() override;
         void OnUpdate() override;
-        void SetWindowTitle(const TString &title) override;
+        void SetWindowTitle(const String &title) override;
 
     private:
         /**
          * @brief
-         * This function converts from TString (a.k.a td::string) to std::wstring
+         * This function converts from String (a.k.a td::string) to std::wstring
          * @param[in] string The string to convert
          */
-        std::wstring HStringToWString(const TString &string);
+        std::wstring HStringToWString(const String &string);
 
         /**
          * @brief
@@ -101,7 +101,7 @@ namespace Kryos
 
         void PClose() override {};
         void OnUpdate(Float32 dt) override {};
-        void SetWindowTitle(const TString &title) override {};
+        void SetWindowTitle(const String &title) override {};
 
     private:
         WindowProperties mProperties;

@@ -20,6 +20,6 @@
  */
 
 #include "Logging/Log.hpp"
-#include "Core/Entrypoint.hpp"
+#include "Runtime/Entrypoint.hpp"
 
-#include "Core/Input/Input.hpp"
+#include "Input/Input.hpp"

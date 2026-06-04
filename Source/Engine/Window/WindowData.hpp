@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/WindowData.hpp
+ * @file Engine/Window/WindowData.hpp
  * This is a Kryos Engine Library header
  */
 

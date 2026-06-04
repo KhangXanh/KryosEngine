@@ -41,7 +41,7 @@ EmitterState::~EmitterState() = default;
 // . Only the ones that make sense will be accepted
 void EmitterState::SetLocalValue(EMITTER_MANIP value) {
   SetOutputCharset(value, FmtScope::Local);
-  SetStringFormat(value, FmtScope::Local);
+  SeStringFormat(value, FmtScope::Local);
   SetBoolFormat(value, FmtScope::Local);
   SetBoolCaseFormat(value, FmtScope::Local);
   SetBoolLengthFormat(value, FmtScope::Local);
@@ -250,7 +250,7 @@ bool EmitterState::SetOutputCharset(EMITTER_MANIP value,
   }
 }
 
-bool EmitterState::SetStringFormat(EMITTER_MANIP value, FmtScope::value scope) {
+bool EmitterState::SeStringFormat(EMITTER_MANIP value, FmtScope::value scope) {
   switch (value) {
     case Auto:
     case SingleQuoted:
