@@ -14,7 +14,7 @@
 
 namespace Kryos
 {
-    Application::Application(const String &appName)
+    Application::Application(const StringView &appName)
         : mApplicationName(appName), mWindowManager(CreateUniquePtr<WindowManager>()), mInputSystem(CreateUniquePtr<InputSystem>())
     {
         mInstance = this;

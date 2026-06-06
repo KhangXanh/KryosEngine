@@ -5,8 +5,9 @@
 
 #pragma once
 
-#include "Window/Window.hpp"
 #include <GLFW/glfw3.h>
+#include "Window/Window.hpp"
+#include "Core/Containers/Strings/String.hpp"
 
 namespace Kryos
 {

@@ -6,6 +6,9 @@
 #pragma once
 
 #include "Core/Core.hpp"
+#include "Core/Memory/SmartPointers.hpp"
+#include "Core/Containers/Hashs/HashTable.hpp"
+#include "Core/Containers/Strings/String.hpp"
 
 /**
  * @brief

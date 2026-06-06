@@ -7,6 +7,9 @@
 
 #include "Window/Window.hpp"
 #include "Input/Input.hpp"
+#include "Core/Memory/SmartPointers.hpp"
+#include "Core/Containers/Strings/String.hpp"
+#include "Core/Containers/Strings/StringView.hpp"
 
 namespace Kryos
 {
@@ -28,7 +31,7 @@ namespace Kryos
     protected:
         /// @note We don't want other class call this except derived classes
         /// @param appName A name for the application
-        Application(const String &appName);
+        Application(const StringView &appName);
 
         /**
          * @brief

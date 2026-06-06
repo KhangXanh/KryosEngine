@@ -111,15 +111,15 @@ namespace Kryos
 
     std::wstring Win32Window::HStringToWString(const String &string)
     {
-        if (string.empty())
+        if (string.IsEmpty())
         {
             return std::wstring();
         }
 
-        int size_needed = MultiByteToWideChar(CP_UTF8, 0, &string[0], (int)string.size(), NULL, 0);
+        int size_needed = MultiByteToWideChar(CP_UTF8, 0, &string[0], (int)string.GetSize(), NULL, 0);
 
         std::wstring wstringTo(size_needed, 0);
-        MultiByteToWideChar(CP_UTF8, 0, &string[0], (int)string.size(), &wstringTo[0], size_needed);
+        MultiByteToWideChar(CP_UTF8, 0, &string[0], (int)string.GetSize(), &wstringTo[0], size_needed);
 
         return wstringTo;
     }

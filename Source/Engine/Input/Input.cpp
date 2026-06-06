@@ -33,11 +33,11 @@ namespace Kryos
         }
 
         const auto &mouseMoves = EventBus::GetEvents<InputEvents::MouseMovedEvent>();
-        if (!mouseMoves.empty())
+        if (!mouseMoves.IsEmpty())
         {
             // We use back() to get the newest position
-            mMouseX = mouseMoves.back().X;
-            mMouseY = mouseMoves.back().Y;
+            mMouseX = mouseMoves.Back().X;
+            mMouseY = mouseMoves.Back().Y;
         }
 
         const auto &mouseScrolls = EventBus::GetEvents<InputEvents::MouseScrolledEvent>();

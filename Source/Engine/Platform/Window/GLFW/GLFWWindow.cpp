@@ -25,7 +25,7 @@ namespace Kryos
 
         mWindow = glfwCreateWindow(
             properties.Width, properties.Height,
-            properties.Name.c_str(),
+            properties.Name.CStr(),
             nullptr, nullptr);
 
         if (!mWindow)
@@ -72,6 +72,6 @@ namespace Kryos
 
     void GLFWWindow::SetWindowTitle(const String &title)
     {
-        glfwSetWindowTitle(mWindow, title.c_str());
+        glfwSetWindowTitle(mWindow, title.CStr());
     }
 }

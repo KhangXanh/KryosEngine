@@ -4,7 +4,8 @@
  */
 
 #pragma once
-#include "Core/Core.hpp"
+//#include "Core/Core.hpp"
+#include "Core/Containers/Arrays/DynamicArray.hpp"
 
 namespace Kryos
 {
@@ -22,7 +23,7 @@ namespace Kryos
         template <typename T, typename... Args>
         inline static void Publish(Args &&...args)
         {
-            HGetQueue<T>().emplace_back(std::forward<Args>(args)...);
+            HGetQueue<T>().EmplaceBack(std::forward<Args>(args)...);
         }
 
         /**
@@ -76,7 +77,7 @@ namespace Kryos
             {
                 if (sData)
                 {
-                    sData->ClearFunctions.push_back([]() { queue.clear(); });
+                    sData->ClearFunctions.PushBack([]() { queue.Clear(); });
                 }
                 return true;
             }();
