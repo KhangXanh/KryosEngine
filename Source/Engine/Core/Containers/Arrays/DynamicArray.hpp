@@ -17,7 +17,6 @@ namespace Kryos
     class KRYOS_API TDynamicArray
     {
     public:
-        using SizeType = unsigned long long;
         using Iterator = T *;
         using ConstIterator = const T *;
 

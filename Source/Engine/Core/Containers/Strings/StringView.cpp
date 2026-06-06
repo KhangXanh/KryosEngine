@@ -52,7 +52,7 @@ namespace Kryos
         return String(*this);
     }
 
-    StringView::SizeType StringView::Find(char ch, SizeType pos) const noexcept
+    SizeType StringView::Find(char ch, SizeType pos) const noexcept
     {
         for (SizeType i = pos; i < mLength; ++i)
             if (mData[i] == ch)
@@ -60,7 +60,7 @@ namespace Kryos
         return NPosition;
     }
 
-    StringView::SizeType StringView::Find(StringView other, SizeType pos) const noexcept
+    SizeType StringView::Find(StringView other, SizeType pos) const noexcept
     {
         if (pos > mLength)
             return NPosition;

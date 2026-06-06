@@ -20,7 +20,6 @@ namespace Kryos
     class KRYOS_API StringView
     {
     public:
-        using SizeType = unsigned long long;
         using Iterator = const char *;
 
         /// @note An invalid position in a string

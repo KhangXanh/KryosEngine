@@ -9,7 +9,7 @@
  * @note
  * ```text
  * Kryos Engine naming convention
- * 
+ *
  * ====================== Class/Struct members: ======================
  *** Variable:
  * - VarName  : Public member variables (PascalCase)
@@ -21,7 +21,7 @@
  * - FuncName()  : Public methods (PascalCase)
  * - HFuncName() : Private hidden methods ('H' prefix for Hidden)
  * - PFuncName() : Protected helper methods ('P' prefix for Protected)
- * 
+ *
  * =================== Data Types/Classes/Structs: ===================
  * - IClassName  : Interfaces / Pure Abstract Classes ('I' prefix for Interface)
  * - TClassName  : Templates / Generic Classes ('T' prefix for Template Type)
@@ -110,28 +110,20 @@
 // An utility for bit calulation
 #define BIT(x) (1 << x)
 
-/// @brief uint8_t
-using UInt8 = std::uint8_t; 
-/// @brief uint16_t  
-using UInt16 = std::uint16_t; 
-/// @brief uint32_t
-using UInt32 = std::uint32_t; 
-/// @brief uint64_t
-using UInt64 = std::uint64_t; 
+using UInt8 = std::uint8_t;
+using UInt16 = std::uint16_t;
+using UInt32 = std::uint32_t;
+using UInt64 = std::uint64_t;
 
-/// @brief int8_t
-using Int8 = std::int8_t;  
-/// @brief int16_t  
+using Int8 = std::int8_t;
 using Int16 = std::int16_t;
-/// @brief int32_t
-using Int32 = std::int32_t; 
-/// @brief int64_t
-using Int64 = std::int64_t; 
+using Int32 = std::int32_t;
+using Int64 = std::int64_t;
 
-/// @brief float
-using Float32 = float;  
-/// @brief double
-using Float64 = double; 
+using Float32 = float;
+using Float64 = double;
+
+using SizeType = std::size_t;
 
 // Checking type on the device
 static_assert(sizeof(void *) == 8, "Kryos Engine only supports 64-bit architectures!");

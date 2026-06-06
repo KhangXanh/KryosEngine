@@ -6,7 +6,6 @@
 #pragma once
 
 #include "Core/Memory/Allocator.hpp"
-#include "Core/Core.hpp"
 #include <cstring>
 #include <utility>
 #include <format>
@@ -23,7 +22,6 @@ namespace Kryos
     class KRYOS_API String
     {
     public:
-        using SizeType = unsigned long long;
         using Iterator = const char *;
 
         /// @note An invalid position in a string
