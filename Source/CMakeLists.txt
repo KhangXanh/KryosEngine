@@ -153,7 +153,7 @@ add_library(KryosEngine SHARED ${ENGINE_SOURCES})
 
 target_compile_definitions(KryosEngine PRIVATE KRYOS_ENGINE_EXPORT)
 
-# We switch between debug and release
+# We switch between debug and release (Comment to turn off)
 target_compile_definitions(KryosEngine PUBLIC KS_DEBUG_MODE)
 
 target_include_directories(KryosEngine PUBLIC

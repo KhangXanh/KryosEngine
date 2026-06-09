@@ -7,7 +7,7 @@
 
 #include "Window/Window.hpp" /// @note Already contains <cstdint>
 #include "Core/Event/InputEvents.hpp"
-#include "Core/Containers/Strings/String.hpp"
+#include "Core/Container/Strings/String.hpp"
 
 /// @details Forward declare
 #if defined(PLATFORM_WINDOWS)

@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Containers/Strings/String.cpp
+ * @file Engine/Core/Container/Strings/String.cpp
  * This is a Kryos Engine Implementation file
  */
 

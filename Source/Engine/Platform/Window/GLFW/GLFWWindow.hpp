@@ -7,7 +7,7 @@
 
 #include <GLFW/glfw3.h>
 #include "Window/Window.hpp"
-#include "Core/Containers/Strings/String.hpp"
+#include "Core/Container/Strings/String.hpp"
 
 namespace Kryos
 {

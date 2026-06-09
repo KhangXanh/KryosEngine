@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Containers/Hashs/HashTable.hpp
+ * @file Engine/Core/Container/Hashs/HashTable.hpp
  * This is a Kryos Engine Library header
  */
 

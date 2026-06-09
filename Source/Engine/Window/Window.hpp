@@ -13,7 +13,7 @@ namespace Kryos
      * @note
      * ```text
      * - We need this for creating the window
-     * - The variable 'Name' is the title-bar's name, also it's the name of the window
+     * - The variable 'Name' is the title, also it's the name of the window
      * ```
      */
     struct KRYOS_API WindowProperties

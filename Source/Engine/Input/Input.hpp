@@ -1,12 +1,12 @@
 /**
- * @file Engine/Core/Input/Input.hpp
+ * @file Engine/Input/Input.hpp
  * This is a Kryos Engine Library header
  */
 
 #pragma once
 
 #include "Core/Event/InputEvents.hpp"
-#include "Core/Containers/Hashs/HashTable.hpp"
+#include "Core/Container/Hashs/HashTable.hpp"
 #include "Math/Vector2D.hpp"
 
 namespace Kryos

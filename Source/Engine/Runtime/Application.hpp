@@ -8,8 +8,8 @@
 #include "Window/Window.hpp"
 #include "Input/Input.hpp"
 #include "Core/Memory/SmartPointers.hpp"
-#include "Core/Containers/Strings/String.hpp"
-#include "Core/Containers/Strings/StringView.hpp"
+#include "Core/Container/Strings/String.hpp"
+#include "Core/Container/Strings/StringView.hpp"
 
 namespace Kryos
 {
@@ -24,13 +24,23 @@ namespace Kryos
     class KRYOS_API Application
     {
     public:
+        /**
+         * @brief
+         * Runs the application
+         */
         void Run();
 
+        /**
+         * @brief This function return instance of the application
+         * @return The application itself
+         */
         Application *Get() { return mInstance; }
 
     protected:
-        /// @note We don't want other class call this except derived classes
-        /// @param appName A name for the application
+        /**
+         * @note We don't want other class call this except derived classes
+         * @param appName A name for the application
+         */
         Application(const StringView &appName);
 
         /**
@@ -81,6 +91,6 @@ namespace Kryos
         Application *mInstance;
     };
 
-    /// @brief This function will be implement in cilents (Derived classes of 'Application')
+    /// @brief This function will implement in cilents (Derived classes of 'Application')
     Application* CreateApplication();
 }

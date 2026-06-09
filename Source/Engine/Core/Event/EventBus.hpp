@@ -5,7 +5,7 @@
 
 #pragma once
 //#include "Core/Core.hpp"
-#include "Core/Containers/Arrays/DynamicArray.hpp"
+#include "Core/Container/Arrays/DynamicArray.hpp"
 
 namespace Kryos
 {

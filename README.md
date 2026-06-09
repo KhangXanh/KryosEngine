@@ -45,6 +45,9 @@ Then run `Setup.bat` to configure, and `Build.bat` in the `Scripts` folder to co
 - [x] Application inheritance
 - [x] Event system
 - [x] Input system
+- [ ] Task manager (threading)
+- [ ] Entity Component System
+- [ ] Scene manager
 - [ ] 2D Renderer
 - [ ] UIce framework
 - [ ] 3D Renderer

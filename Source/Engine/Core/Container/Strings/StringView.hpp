@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Containers/Strings/StringView.hpp
+ * @file Engine/Core/Container/Strings/StringView.hpp
  * This is a Kryos Engine Library header
  */
 

@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Containers/Strings/String.hpp
+ * @file Engine/Core/Container/Strings/String.hpp
  * This is a Kryos Engine Library header
  */
 

@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Containers/Arrays/DynamicArray.cpp
+ * @file Engine/Core/Container/Arrays/DynamicArray.cpp
  * This is a Kryos Engine Implementation file
  */
 

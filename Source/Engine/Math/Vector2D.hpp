@@ -5,19 +5,15 @@
 
 #pragma once
 
-// Forward declare
-using Float32 = float;
+#include "Core/Core.hpp"
 
-namespace Kryos
+namespace Kryos::Math
 {
-    namespace Math
+    struct Vector2D
     {
-        struct Vector2D
-        {
-            Float32 X = 0.0f, Y = 0.0f;
+        Float32 X = 0.0f, Y = 0.0f;
 
-            Vector2D() = default;
-            Vector2D(Float32 x, Float32 y) : X(x), Y(y) {}
-        };
-    }
+        Vector2D() = default;
+        Vector2D(Float32 x, Float32 y) : X(x), Y(y) {}
+    };
 }

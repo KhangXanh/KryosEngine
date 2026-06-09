@@ -1,5 +1,5 @@
 /**
- * @file Engine/Core/Containers/Arrays/DynamicArray.hpp
+ * @file Engine/Core/Container/Arrays/DynamicArray.hpp
  * This is a Kryos Engine Library header
  */
 

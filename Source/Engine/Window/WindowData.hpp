@@ -7,8 +7,8 @@
 
 #include "Core/Core.hpp"
 #include "Core/Memory/SmartPointers.hpp"
-#include "Core/Containers/Hashs/HashTable.hpp"
-#include "Core/Containers/Strings/String.hpp"
+#include "Core/Container/Hashs/HashTable.hpp"
+#include "Core/Container/Strings/String.hpp"
 
 /**
  * @brief
