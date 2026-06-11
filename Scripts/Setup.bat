@@ -37,7 +37,7 @@ if %errorlevel% neq 0 (
 )
 
 echo [INFO] Generating build files...
-cmake -S Source -B build %GENERATOR%
+cmake -S Source -B Build %GENERATOR%
 if %errorlevel% neq 0 (
     echo [ERROR] CMake configuration failed!
     pause
