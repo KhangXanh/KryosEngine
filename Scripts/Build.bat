@@ -1,10 +1,9 @@
 @echo off
-:: Copyright (c) 2026 Nguyễn Mạnh Khang (Blue). All Rights Reserved.
 
 cd /d "%~dp0"
 echo [Kryos Engine] Building...
 
-cmake --build build
+cmake --build Build
 if %errorlevel% neq 0 (
     echo [ERROR] Build failed!
     pause
