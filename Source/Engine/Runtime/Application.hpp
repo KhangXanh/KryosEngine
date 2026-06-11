@@ -34,7 +34,7 @@ namespace Kryos
          * @brief This function return instance of the application
          * @return The application itself
          */
-        Application *Get() { return mInstance; }
+        static Application *Get() { return mInstance; }
 
     protected:
         /**
@@ -87,8 +87,9 @@ namespace Kryos
 
         /// @note For debugging
         String mApplicationName;
+        
         /// @brief The application itself
-        Application *mInstance;
+        static Application *mInstance;
     };
 
     /// @brief This function will implement in cilents (Derived classes of 'Application')
