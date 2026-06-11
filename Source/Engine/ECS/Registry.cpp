@@ -21,7 +21,7 @@ namespace Kryos::ECS
         {
             pool->EntityDestroyed(entity);
         }
-        if (mEntityIndices.contains(entity))
+        if (mEntityIndices.Contains(entity))
         {
             size_t removedIndex = mEntityIndices[entity];
             size_t lastIndex = mEntities.GetSize() - 1;
@@ -31,7 +31,7 @@ namespace Kryos::ECS
 
             mEntityIndices[lastEntity] = removedIndex;
             mEntities.PopBack();
-            mEntityIndices.erase(entity);
+            mEntityIndices.Erase(entity);
         }
     }
 

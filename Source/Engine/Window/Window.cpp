@@ -27,9 +27,7 @@ namespace Kryos
     void WindowManager::Init()
     {
         // First we clear all the trash in 'mWindows' for safety
-        mWindows.clear();
-        // Then we prepare 1 slot for next window
-        mWindows.reserve(1);
+        mWindows.Clear();
         // Then we assign the 'mNextWindowID' to 0
         mNextWindowID = 0;
         KS_CORE_INFO("WindowManager has been initialized.");
@@ -42,7 +40,7 @@ namespace Kryos
         WindowID newID = mNextWindowID++;
         // Set new window' ID to 'newID'
         newWindow->pID = newID;
-        mWindows.emplace(newID, std::move(newWindow));
+        mWindows.Emplace(newID, std::move(newWindow));
         KS_CORE_INFO("A window with ID {} has been created.", newID);
         return newID;
     }
@@ -51,8 +49,8 @@ namespace Kryos
     {
         // If we can find a window with the same ID
         // we will return the pointer to that window without changing ownership
-        auto it = mWindows.find(id);
-        if (it == mWindows.end())
+        auto it = mWindows.Find(id);
+        if (it == mWindows.End())
         {
             // If don't then we return a nullptr
             KS_CORE_ERROR("There is no window with ID {}!", id);
@@ -72,7 +70,7 @@ namespace Kryos
 
     void WindowManager::CloseWindow(WindowID id)
     {
-        auto it = mWindows.find(id);
+        auto it = mWindows.Find(id);
 
         if (it == mWindows.end())
         {
@@ -81,7 +79,7 @@ namespace Kryos
         }
 
         it->second->PClose();
-        mWindows.erase(it);
+        mWindows.Erase(it);
 
         KS_CORE_INFO("A Window with ID {} closed.", id);
     }
@@ -90,13 +88,13 @@ namespace Kryos
     {
         for (auto &[id, window] : mWindows)
             window->PClose();
-        mWindows.clear();
+        mWindows.Clear();
         KS_CORE_INFO("All windows closed.");
     }
 
     bool WindowManager::ShouldCloseAllWindow() const
     {
         // We check does the 'mWindows' is empty
-        return mWindows.empty();
+        return mWindows.IsEmpty();
     }
 }

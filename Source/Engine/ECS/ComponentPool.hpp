@@ -15,11 +15,11 @@ namespace Kryos::ECS
      * @brief
      * A tightly-packed contiguous storage (Sparse Set) for a specific component type T
      */
-    template<typename T>
+    template <typename T>
     class ComponentPool : public IComponentPool
     {
     public:
-        void Insert(Entity&entity, T component)
+        void Insert(Entity &entity, T component)
         {
             SizeType newIndex = mDenseArray.GetSize();
             mSparseTable[entity] = newIndex;
@@ -27,9 +27,10 @@ namespace Kryos::ECS
             mDenseArray.PushBack(component);
         }
 
-        T* Get(Entity entity) const
+        T *Get(Entity entity) const
         {
-            return mDenseArray[mSparseTable[entity]];
+            const SizeType *idx = mSparseTable.TryGet(entity);
+            return idx ? &mDenseArray[*idx] : nullptr;
         }
 
         void EntityDestroyed(Entity entity) override
@@ -46,8 +47,8 @@ namespace Kryos::ECS
                 mIndexToEntityTable[indexToDestroy] = lastEntity;
 
                 mDenseArray.PopBack();
-                mSparseTable.erase(entity);
-                mIndexToEntityTable.erase(lastIndex);
+                mSparseTable.Erase(entity);
+                mIndexToEntityTable.Erase(lastIndex);
             }
         }
 
