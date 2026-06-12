@@ -101,7 +101,7 @@ namespace Kryos
         UInt32 GetHeight() const override { return mProperties.Height; };
 
         void PClose() override {};
-        void OnUpdate(Float32 dt) override {};
+        void OnUpdate() override {};
         void SetWindowTitle(const String &title) override {};
 
     private:

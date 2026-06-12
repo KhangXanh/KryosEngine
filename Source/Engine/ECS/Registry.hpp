@@ -14,7 +14,7 @@ namespace Kryos::ECS
      * @brief
      * A class to manage entities, components (A manager in ECS)
      */
-    class Registry
+    class KRYOS_API Registry
     {
     public:
         Entity CreateEntity();

@@ -20,7 +20,7 @@ namespace Kryos
             mEditorID = PGetWindowManager()->AddWindow(editorProps);
         }
 
-        void PCustomOnUpdate(Float32 dt) override
+        void PCustomOnUpdate(Float32 deltaTime) override
         {
             if (PGetInputSystem()->IsKeyPressed(Key::A))
             {
