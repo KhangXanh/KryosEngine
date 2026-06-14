@@ -29,10 +29,8 @@
  * ```
  */
 
-#include <memory>
 #include <cstdint>
 #include <functional>
-
 #include <bit>    // For checking Endian (byte order)
 #include <limits> // For checking Floating-Point Standard
 
