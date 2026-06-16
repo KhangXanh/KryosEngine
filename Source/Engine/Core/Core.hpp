@@ -26,6 +26,11 @@
  * - IClassName  : Interfaces / Pure Abstract Classes ('I' prefix for Interface)
  * - TClassName  : Templates / Generic Classes ('T' prefix for Template Type)
  * - ClassName   : Concrete Classes / Value Types (PascalCase, no prefix)
+ * - mStructName : Private struct or class ('m' prefix for Member)
+ * - pStructName : Protected struct or class ('p' prefix for Protected)
+ * 
+ * ============================== Note: ==============================
+ * - Members in private/protected struct or class still use 'Class/Struct members' rules
  * ```
  */
 
