@@ -28,7 +28,7 @@
  * - ClassName   : Concrete Classes / Value Types (PascalCase, no prefix)
  * - mStructName : Private struct or class ('m' prefix for Member)
  * - pStructName : Protected struct or class ('p' prefix for Protected)
- * 
+ *
  * ============================== Note: ==============================
  * - Members in private/protected struct or class still use 'Class/Struct members' rules
  * ```
@@ -69,6 +69,28 @@
 #endif
 #else
 #define KRYOS_API
+#endif
+
+#define KS_STATIC_ASSERT(Expression, Message) static_assert(Expression, "[COMPILE ERROR] " Message)
+
+#if defined(KS_DEBUG_MODE)
+#if defined(PLATFORM_WINDOWS)
+#define KS_DEBUG_BREAK() __debugbreak()
+#else
+#define KS_DEBUG_BREAK() __builtin_trap()
+#endif
+
+#define KS_RUNTIME_ASSERT(Expression, Message) \
+    do                                         \
+    {                                          \
+        if ((!(Expression)))                   \
+            KS_UNLIKELY                        \
+            {                                  \
+                KS_DEBUG_BREAK();              \
+            }                                  \
+    } while (0)
+#else
+#define KS_RUNTIME_ASSERT(Expression, Message) ((void)0)
 #endif
 
 /// @note All the compiler attrubutes wrap in macros
@@ -129,10 +151,10 @@ using Float64 = double;
 using SizeType = std::size_t;
 
 // Checking type on the device
-static_assert(sizeof(void *) == 8, "Kryos Engine only supports 64-bit architectures!");
-static_assert(sizeof(UInt32) == 4, "Kryos Engine requires standard 32-bit int size!");
-static_assert(sizeof(Float32) == 4, "Kryos Engine requires standard 32-bit float size!");
+KS_STATIC_ASSERT(sizeof(void *) == 8, "Kryos Engine only supports 64-bit architectures!");
+KS_STATIC_ASSERT(sizeof(UInt32) == 4, "Kryos Engine requires standard 32-bit int size!");
+KS_STATIC_ASSERT(sizeof(Float32) == 4, "Kryos Engine requires standard 32-bit float size!");
 
 // Checking system and device requires
-static_assert(std::endian::native == std::endian::little, "Kryos Engine only supports Little-Endian platforms!");
-static_assert(std::numeric_limits<Float32>::is_iec559, "Kryos Engine requires IEEE 754 / IEC 556 floating-point standard!");
+KS_STATIC_ASSERT(std::endian::native == std::endian::little, "Kryos Engine only supports Little-Endian platforms!");
+KS_STATIC_ASSERT(std::numeric_limits<Float32>::is_iec559, "Kryos Engine requires IEEE 754 / IEC 556 floating-point standard!");
