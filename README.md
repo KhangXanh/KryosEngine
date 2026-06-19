@@ -45,13 +45,15 @@ Then run `Setup.bat` to configure, and `Build.bat` in the `Scripts` folder to co
 - [x] Application inheritance
 - [x] Event system
 - [x] Input system
-- [ ] Task manager (threading)
-- [X] Entity Component System
+- [ ] Memory Manager (Working)
+- [ ] Custom containers (Working)
+- [X] Entity Component System (Refactoring)
 - [ ] Scene manager
 - [ ] 2D Renderer
 - [ ] UIce framework
 - [ ] 3D Renderer
 - [ ] Ray tracing
+- [ ] Task manager
 - [ ] Lua scripting
 - [ ] Build pipeline
 
